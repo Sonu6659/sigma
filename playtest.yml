@@ -28,5 +28,5 @@
 
     - name: Calculate execution time
       become: yes
-      shell: "echo {{ (end_time.stdout | float) - (start_time.stdout | float) }} > /tmp/executions_time.txt"
+      shell: "echo {{ (end_time.stdout | float) - (start_time.stdout | float) }} > /tmp/execut_time.txt"
 
