@@ -1,32 +1,21 @@
 ---
-- name: Create file and save execution time
-  hosts: localhost
-  gather_facts: no
+- name: Print Hello, World! and Save Execution Time
+  hosts: all
+  gather_facts: false
 
   tasks:
-    - name: Record execution time
-      become: yes
-      command: "/bin/date +%s.%N"
-      register: start_time
+    - name: Print Hello, World!
+      debug:
+        msg: "Hello, World!"
 
-    - name: Sleep for a few seconds (Replace with your actual tasks)
-      command: "sleep 5s"
-      async: 300
-      poll: 0
-      ignore_errors: yes
+    - name: Create the time file
+      shell: touch /tmp/time_f.txt
 
-    - name: Create file in /tmp
-      become: yes
-      file:
-        path: "/tmp/semaphore.txt"
-        state: touch
+    - name: Save Execution Time
+      shell: date +%Y-%m-%d_%H-%M-%S
+      register: time_output
 
-    - name: Record execution end time
-      become: yes
-      command: "/bin/date +%s.%N"
-      register: end_time
-
-    - name: Calculate execution time
-      become: yes
-      shell: "echo {{ (end_time.stdout | float) - (start_time.stdout | float) }} > /tmp/execut_time.txt"
-
+    - name: Save the execution time to a file
+      copy:
+        content: "{{ time_output.stdout }}"
+        dest: /tmp/time_f.txt
