@@ -2,6 +2,7 @@
 - name: Print Hello, World! and Save Execution Time
   hosts: localhost
   gather_facts: false
+  become: yes
 
   tasks:
     - name: Print Hello, World!
