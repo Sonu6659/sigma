@@ -1,6 +1,6 @@
 ---
 - name: Print Hello, World! and Save Execution Time
-  hosts: all
+  hosts: localhost
   gather_facts: false
 
   tasks:
