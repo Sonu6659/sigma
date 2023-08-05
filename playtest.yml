@@ -1,6 +1,6 @@
 ---
 - name: Print Hello, World! and Save Execution Time
-  hosts: localhost
+  hosts: all
   gather_facts: false
   become: yes
 
@@ -9,14 +9,4 @@
       debug:
         msg: "Hello, World!"
 
-    - name: Create the time file
-      shell: touch /tmp/time_f.txt
-
-    - name: Save Execution Time
-      shell: date +%Y-%m-%d_%H-%M-%S
-      register: time_output
-
-    - name: Save the execution time to a file
-      copy:
-        content: "{{ time_output.stdout }}"
-        dest: /tmp/time_f.txt
+  
